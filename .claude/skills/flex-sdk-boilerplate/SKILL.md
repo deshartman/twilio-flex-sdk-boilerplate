@@ -60,6 +60,10 @@ documents + Twilio review (~24 business hours) — Console only, then re-run.
 `npm run clone-bundle` is the standalone clone (source/target SIDs, Bundle SID,
 source Auth Token).
 
+To place test calls/texts into Flex without a handset, use the `twilio-dev-phone`
+skill. Dev Phone needs a **second** number (it overwrites and then blanks that
+number's webhooks), so buy a cheap US one rather than reusing the Flex number.
+
 ## The login username — the #1 point of confusion
 
 The login form wants the **Flex username**, which on SSO accounts is usually the

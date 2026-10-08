@@ -117,6 +117,8 @@ with no code changes.
   `flex-sdk-ui` skill first — it maps each screen area to its file.
 - **Setup, login, env, troubleshooting, architecture**: invoke the
   `flex-sdk-boilerplate` skill first.
+- **Dev Phone / testing calls or SMS without a handset**: invoke the
+  `twilio-dev-phone` skill first.
 
 ## Docs
 
