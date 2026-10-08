@@ -1,13 +1,4 @@
 {
-  "app": {
-    "title": "Twilio Flex SDK Boilerplate",
-    "subtitle": "Next.js + TypeScript 客服桌面基礎框架。"
-  },
-  "buttons": {
-    "primary": "主要",
-    "secondary": "次要",
-    "danger": "危險"
-  },
   "close": "關閉",
   "localeSwitcher": {
     "label": "選擇語言",

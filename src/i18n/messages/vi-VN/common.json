@@ -1,13 +1,4 @@
 {
-  "app": {
-    "title": "Twilio Flex SDK Boilerplate",
-    "subtitle": "Nền tảng màn hình tổng đài viên Next.js + TypeScript."
-  },
-  "buttons": {
-    "primary": "Chính",
-    "secondary": "Phụ",
-    "danger": "Nguy hiểm"
-  },
   "close": "Đóng",
   "localeSwitcher": {
     "label": "Chọn ngôn ngữ",

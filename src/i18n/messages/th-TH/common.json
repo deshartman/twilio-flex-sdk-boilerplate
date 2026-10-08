@@ -1,13 +1,4 @@
 {
-  "app": {
-    "title": "Twilio Flex SDK Boilerplate",
-    "subtitle": "รากฐานเดสก์ท็อปสำหรับเจ้าหน้าที่ Next.js + TypeScript"
-  },
-  "buttons": {
-    "primary": "หลัก",
-    "secondary": "รอง",
-    "danger": "อันตราย"
-  },
   "close": "ปิด",
   "localeSwitcher": {
     "label": "เลือกภาษา",

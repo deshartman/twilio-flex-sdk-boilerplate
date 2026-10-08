@@ -53,7 +53,7 @@ describe('loadMessages', () => {
   it('loads the real committed shell catalogs for en and es-ES', () => {
     const en = loadMessages('en');
     const es = loadMessages('es-ES');
-    expect((en.common!.app as { title: string }).title).toBe('Twilio Flex SDK Boilerplate');
-    expect((es.common!.app as { title: string }).title).toBe('Plantilla del SDK de Twilio Flex');
+    expect((en.common!.localeSwitcher as { label: string }).label).toBe('Select language');
+    expect((es.common!.localeSwitcher as { label: string }).label).toBe('Seleccionar idioma');
   });
 });

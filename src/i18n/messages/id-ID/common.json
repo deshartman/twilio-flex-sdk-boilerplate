@@ -1,13 +1,4 @@
 {
-  "app": {
-    "title": "Twilio Flex SDK Boilerplate",
-    "subtitle": "Fondasi desktop agen Next.js + TypeScript."
-  },
-  "buttons": {
-    "primary": "Utama",
-    "secondary": "Sekunder",
-    "danger": "Bahaya"
-  },
   "close": "Tutup",
   "localeSwitcher": {
     "label": "Pilih bahasa",

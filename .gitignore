@@ -2,6 +2,9 @@
 
 # dependencies
 /node_modules
+# npm is the canonical package manager (package-lock.json); keep pnpm artifacts local
+pnpm-lock.yaml
+pnpm-workspace.yaml
 /.pnp
 .pnp.*
 .yarn/*

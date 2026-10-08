@@ -1,13 +1,4 @@
 {
-  "app": {
-    "title": "Twilio Flex SDK Boilerplate",
-    "subtitle": "Next.js + TypeScript 에이전트 데스크탑 기반."
-  },
-  "buttons": {
-    "primary": "기본",
-    "secondary": "보조",
-    "danger": "위험"
-  },
   "close": "닫기",
   "localeSwitcher": {
     "label": "언어 선택",

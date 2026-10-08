@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "configure": "node scripts/setup.mjs",
+    "clone-bundle": "node scripts/clone-bundle.mjs"
   },
   "dependencies": {
     "@twilio/flex-sdk": "^4.1.0",

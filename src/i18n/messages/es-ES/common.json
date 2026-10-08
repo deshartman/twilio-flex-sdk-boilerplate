@@ -1,13 +1,4 @@
 {
-  "app": {
-    "title": "Plantilla del SDK de Twilio Flex",
-    "subtitle": "Base de escritorio de agente con Next.js + TypeScript."
-  },
-  "buttons": {
-    "primary": "Primario",
-    "secondary": "Secundario",
-    "danger": "Peligro"
-  },
   "close": "Cerrar",
   "localeSwitcher": {
     "label": "Seleccionar idioma",

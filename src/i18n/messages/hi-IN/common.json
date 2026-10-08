@@ -1,13 +1,4 @@
 {
-  "app": {
-    "title": "Twilio Flex SDK Boilerplate",
-    "subtitle": "Next.js + TypeScript एजेंट डेस्कटॉप फ़ाउंडेशन।"
-  },
-  "buttons": {
-    "primary": "प्राथमिक",
-    "secondary": "द्वितीयक",
-    "danger": "खतरा"
-  },
   "close": "बंद करें",
   "localeSwitcher": {
     "label": "भाषा चुनें",

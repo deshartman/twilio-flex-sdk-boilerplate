@@ -61,12 +61,36 @@ Requires Node.js 20+.
 
 ```bash
 npm install
+npm run configure   # optional: connect a live Flex account (see below)
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Without credentials the app runs in **stub mode** against a mock session — the login form issues a clearly-marked stub token and the full UI is explorable offline.
+Open [http://localhost:3000](http://localhost:3000) — it redirects to the login page (`/login`); a successful sign-in lands on the agent desktop (`/agent-desktop`). Without credentials the app runs in **stub mode** against a mock session — the login form issues a clearly-marked stub token and the full UI is explorable offline.
+
+> **Package manager:** the repo is npm-based (`package-lock.json` is committed). pnpm works too, but `pnpm-lock.yaml` / `pnpm-workspace.yaml` are gitignored so they don't drift against the npm lockfile — don't commit them.
 
 ## Configuration
+
+### Quick setup (recommended)
+
+`npm run configure` (or `pnpm configure`) asks for just your **Account SID** and **Auth Token** — from the Console home page of the account or sub-account that has Flex — and works out everything else:
+
+| It… | Writes |
+| --- | --- |
+| Verifies the credentials and that Flex is set up on the account | `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN` |
+| Reads the Flex Configuration | `TWILIO_FLEX_INSTANCE_SID`, `TWILIO_WORKSPACE_SID` |
+| Reuses the existing Sync service, or creates one named "Flex SDK Boilerplate" | `TWILIO_SYNC_SERVICE_SID` |
+| Keeps your API key if it works; otherwise creates a **Standard** key | `TWILIO_API_KEY`, `TWILIO_API_SECRET` |
+| Lists the agents on the instance and asks which one you'll log in as | `TWILIO_FLEX_USERNAME` |
+| Optionally sets up a **phone number** for Flex (see below) | — (changes the number, not the env file) |
+
+It writes to `.env.local` (or to `.env` if that's your only env file), changing only these keys, and is safe to re-run: saved credentials are reused without prompting (it only asks if they're missing or rejected), and the Auth Token is never echoed. Restart the dev server afterwards. `PUBLIC_BASE_URL` (live transcript tunnel) is the one value you still set by hand.
+
+**Phone number step.** At the end, `configure` offers to set up a number. Pick an existing number (each is labelled *on Flex* / *not on Flex*) or buy one: choose country and type (local / mobile / toll-free); if that country needs a regulatory bundle it reuses an approved one in the account, or offers to **clone** one from a parent account (asks for the parent's SID and Auth Token, hidden, used once). It then routes the number into Flex the same way Flex's own numbers are wired — **voice** → the Flex `Voice IVR` Studio flow, **SMS** → a Conversations address that starts the Flex `Messaging Flow`. Purchases show the monthly price and need an explicit `y`; changing an existing number shows its current webhooks first and needs a `y` too. A brand-new bundle can't be automated (it needs identity documents and Twilio review, ~24 business hours) — create it in Console → Phone Numbers → Regulatory Compliance, then re-run.
+
+> **No agents listed?** A Flex agent is created the first time someone logs into hosted Flex. Open Console → Flex → Overview → **Launch Flex**, log in once, then re-run.
+
+### Manual setup
 
 Copy `.env.example` to `.env.local` and fill in your Twilio values to switch from stub mode to a live Flex session. When the required live vars are missing, `/api/token` returns a clearly-marked **stub** token and the app runs offline.
 
@@ -97,6 +121,8 @@ Copy `.env.example` to `.env.local` and fill in your Twilio values to switch fro
 Two login paths are supported, both minted server-side by `POST /api/token`:
 
 - **Custom token (default / demo).** The login form mints a Flex user token for a username (falling back to `TWILIO_FLEX_USERNAME`). With no live credentials this returns a stub token so the UI still boots.
+
+  **Which username?** In live mode it must be an existing **Flex username** on the instance — the token route looks it up via the Flex Users API and returns `flex_user_not_found` otherwise. On SSO accounts this is usually the login handle (e.g. `jdoe`), **not** the email address. A Flex user is created the first time someone logs into the hosted Flex UI on that account. `npm run configure` lists the valid usernames for you.
 - **SSO / OAuth.** When `NEXT_PUBLIC_FLEX_SSO_PROFILE_SID` is set, the SDK's `exchangeToken` OAuth callback (`?code&state`) is exchanged for an access token on the login page.
 
 **Token refresh.** Flex custom tokens have a 1-hour TTL. On the custom-token path the app runs a self-managed refresh loop (mirroring the reference `flex-template-builder`): a proactive timer re-mints ~1 minute before expiry and rotates the token in place via `client.updateToken(...)`, plus a reactive `TokenAutoUpdateFailed` listener for an emergency re-mint. Because the mint is keyed on a username (there's no server session), the login **identity** is persisted in the store and replayed on every refresh — so the session also survives a page reload. The SSO path uses the SDK's native `autoUpdateToken` instead and is unchanged.
@@ -105,6 +131,8 @@ Two login paths are supported, both minted server-side by `POST /api/token`:
 
 | Command | Description |
 | --- | --- |
+| `npm run configure` | Interactive live-account setup: from an Account SID + Auth Token, discovers or creates the API key, Flex/TaskRouter SIDs, Sync service, and login username, and writes the env file. |
+| `npm run clone-bundle` | Standalone version of the bundle clone `configure` offers: clone a `twilio-approved` regulatory bundle from a parent account into a sub-account. Prompts for source/target Account SIDs, Bundle SID, and the source Auth Token (hidden); stores nothing. |
 | `npm run dev` | Dev server with Fast Refresh. The live SDK session lives in a module singleton, so a UI hot-reload won't drop an active call. |
 | `npm run build` / `npm start` | Production build / serve. |
 | `npm test` | Vitest in watch mode. |
@@ -222,5 +250,6 @@ TDD — tests live in `__tests__/` beside the code and run on Vitest with Testin
 
 - Design spec & implementation plans: `docs/superpowers/specs/` and `docs/superpowers/plans/`.
 - Contributor guidance: `CLAUDE.md` / `AGENTS.md`.
+- **Ask Claude instead of reading this:** open the repo in [Claude Code](https://claude.com/claude-code) and ask anything ("how do I connect my Flex account?", "add a nav-item plugin", "why does login say flex_user_not_found?"). Two project skills give it the context: `.claude/skills/flex-sdk-boilerplate/` (setup, troubleshooting, architecture — this README) and `.claude/skills/flex-sdk-ui/` (a screen-to-file map of the desktop plus recipes for restyling, resizing, rebranding, and adding or removing panels — e.g. "make the left column narrower", "remove Queues", "our brand colour is green").
 </content>
 </invoke>

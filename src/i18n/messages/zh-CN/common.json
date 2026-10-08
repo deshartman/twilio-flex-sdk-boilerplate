@@ -1,13 +1,4 @@
 {
-  "app": {
-    "title": "Twilio Flex SDK Boilerplate",
-    "subtitle": "基于 Next.js + TypeScript 的坐席桌面基础框架。"
-  },
-  "buttons": {
-    "primary": "主要",
-    "secondary": "次要",
-    "danger": "危险"
-  },
   "close": "关闭",
   "localeSwitcher": {
     "label": "选择语言",

@@ -110,6 +110,14 @@ with no code changes.
 - Follow the existing slice/feature/wrapper patterns rather than introducing new
   ones.
 
+## Project skills — load before exploring
+
+- **UI questions or changes** (where something is rendered, layout, colours,
+  sizing, branding, adding/removing panels, tabs, rail items): invoke the
+  `flex-sdk-ui` skill first — it maps each screen area to its file.
+- **Setup, login, env, troubleshooting, architecture**: invoke the
+  `flex-sdk-boilerplate` skill first.
+
 ## Docs
 
 Design spec: `docs/superpowers/specs/2026-07-26-twilio-flex-sdk-nextjs-boilerplate-design.md`
