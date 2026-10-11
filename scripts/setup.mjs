@@ -10,6 +10,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { SetupError, twilioClient, failure, mask, createPrompter } from './lib/twilio.mjs';
 import { setupPhoneNumber } from './lib/phoneNumber.mjs';
+import { setupWhatsApp } from './lib/whatsapp.mjs';
 
 export { SetupError, twilioClient };
 
@@ -230,6 +231,9 @@ async function main() {
 
     if (!/^n/i.test(await ask('\nSet up a phone number for Flex now? [Y/n]: '))) {
       await setupPhoneNumber({ req, accountSid, chatServiceSid, ask });
+    }
+    if (/^y/i.test(await ask('\nRoute a WhatsApp sender into Flex? [y/N]: '))) {
+      await setupWhatsApp({ req, chatServiceSid, ask });
     }
   } catch (err) {
     if (!(err instanceof SetupError)) throw err;
